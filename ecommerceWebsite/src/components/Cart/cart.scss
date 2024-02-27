@@ -9,6 +9,7 @@
     right: 0;
     z-index: 99;
     display: flex;
+    
     justify-content: flex-end;
     .opac-layer{
        width: 100%;
@@ -114,11 +115,15 @@
             .checkout{
                 
                 padding:20px 15px ;
+              
             .checkout-cta{
                 outline: 0;
                 height: 50px;
                 width: 100%;
-
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
                 text-transform: uppercase;
                 border: none;
                 background-color: #DE3630;
@@ -129,6 +134,9 @@
                 &:hover{
                     background-color: #c42d28;
 
+                }
+                svg{
+                    font-size: 20px;
                 }
             }
         }

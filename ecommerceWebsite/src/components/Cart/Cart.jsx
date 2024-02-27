@@ -2,7 +2,8 @@ import React from "react";
 import "./cart.scss";
 import { MdClose } from "react-icons/md";
 import { BsCartX } from "react-icons/bs";
-// import CartItem from "./CartItem/CartItem";
+import CartItem from "./CartItem/CartItem";
+import { MdShoppingCartCheckout } from "react-icons/md";
 
 const Cart = ({ setShowCart }) => {
   return (
@@ -28,14 +29,14 @@ const Cart = ({ setShowCart }) => {
             <button className='return-cta'>return to shop</button>
           </div> */}
         <>
-          {/* <CartItem/> */}
+          <CartItem/>
           <div className="cart-footer">
             <div className="subtotal">
                <div className="text">Subtotal:</div>
                <div className="text totalPrice">&#8377; 8000</div>
             </div>
             <div className="checkout">
-              <button className="checkout-cta">Checkout</button>
+              <button className="checkout-cta"><MdShoppingCartCheckout/>Checkout</button>
             </div>
           </div>
           </>
