@@ -1,28 +1,77 @@
-import React from 'react'
-import './category.scss'
-import cat1 from "../../assets/category/cat-1.jpg"
-import cat2 from "../../assets/category/cat-2.jpg"
-import cat3 from "../../assets/category/cat-3.jpg"
-import cat4 from "../../assets/category/cat-4.jpg"
-const Category = () => {
-  return (
-    <div className="shop-by-category">
-      <div className="categories">
-        <div className="category">
-          <img src={cat1} alt="" />
-        </div>
-        <div className="category">
-          <img src={cat2} alt="" />
-        </div>
-        <div className="category">
-          <img src={cat3} alt="" />
-        </div>
-        <div className="category">
-          <img src={cat4} alt="" />
-        </div>
-      </div>
-    </div>
-  )
-}
+import React, { useEffect, useState } from "react";
+import "./category.scss";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export default Category
+const Category = () => {
+  const navigate=useNavigate()
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 4,
+    },
+    desktop: {
+      breakpoint: { max: 2000, min: 1250 },
+      items: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+
+  const [categories, setCategories] = useState([]);
+  const[error,setError]=useState('')
+  useEffect(() => {
+    const abortController=new AbortController()
+    try {
+      axios
+        .get("http://127.0.0.1:8000/api/categories/",{
+          signal:abortController.signal
+        })
+        .then((response) => setCategories(response.data));
+    } catch (error) {
+      setError(error)
+    }
+    
+    return ()=>abortController.abort()
+
+  }, []);
+
+
+  const handleClick=(category_name)=>{
+    navigate(`/category/${category_name}`)
+  }
+
+  return (
+    <>
+      <div className="category-container">
+        <Carousel
+          responsive={responsive}
+          swipeable={false}
+          itemClass="carousel-item-padding-40-px"
+          
+        >
+         { 
+          categories.map((element)=>
+          {
+            return <div className="category" key={element.id} onClick={()=>handleClick(element.slug)} >
+              <img src={element.category_img} alt="" />
+            </div>
+          }
+          )
+        }
+        </Carousel>
+      </div>
+    </>
+  );
+};
+
+export default Category;

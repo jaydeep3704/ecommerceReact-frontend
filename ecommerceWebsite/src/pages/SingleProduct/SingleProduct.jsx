@@ -1,44 +1,67 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import "./singleProduct.scss"
 import { FaTwitter } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
-import prodImg from "../../assets/products/watch-prod-2.webp";
-import RelatedProduct from "./RelatedProducts/RelatedProduct";
 
+import RelatedProduct from "./RelatedProducts/RelatedProduct";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const SingleProduct = () => {
+  const productId=useParams().id
+  const [product, setProduct] = useState([])
+  const[quantity,setQuantity]=useState(1)
+
+  useEffect(() => {
+    const abortController=new AbortController()
+    try {
+      axios
+        .get(`http://127.0.0.1:8000/api/products/${productId}`,{
+          signal:abortController.signal
+        })
+        .then((response) => setProduct(response.data));
+    } catch (error) {
+      setError(error)
+    }
+    
+    return ()=>abortController.abort()
+
+  }, [productId]);
+
+  const handleAdd=()=>{
+    setQuantity((prev)=>prev+1)
+  }
+
+  const handleSubtract=()=>{
+    if(quantity>1)
+    {
+      setQuantity((prev)=>prev-1)
+    }
+  }
+  
+
   return (
-	<>    <div className="single-product-main-content">
+	<>   
+   <div className="single-product-main-content">
       <div className="layout">
         <div className="single-product-page">
           <div className="left">
-            <img src={prodImg} alt="" />
+            <img src={product.image} alt="" />
           </div>
           <div className="right">
             <div className="prod-title">
-              boAt Ultima Select Smart Watch with 2.01" AMOLED Display, Advanced
-              BT Calling, Functional Crown, Always on Display
+             {product.product_name}
             </div>
-            <div className="prod-price">₹2,999</div>
+            <div className="prod-price">₹{product.price}</div>
             <div className="prod-desc">
-              AMOLED Display: Immerse yourself in the brilliance of a 2.01"
-              (5.10 cm) AMOLED display, delivering vibrant visuals and clarity
-              to enhance your smartwatch experience Advanced Bluetooth Calling:
-              Stay connected on the go with advanced Bluetooth calling directly
-              from your wrist, ensuring seamless communication wherever you are.
-              Functional Crown: Navigate effortlessly through features with the
-              functional crown, adding a touch of sophistication and
-              practicality to your smartwatch interaction. Always on Display:
-              Keep track of time and notifications at a glance with the
-              always-on display, providing instant access to essential
-              information.
+             {product.description}
             </div>
             <div className="cart-buttons">
               <div className="quantity-buttons">
-                <span>-</span>
-                <span>5</span>
-                <span>+</span>
+                <span onClick={handleSubtract} >-</span>
+                <span>{quantity}</span>
+                <span onClick={handleAdd}>+</span>
               </div>
               <button className="add-to-cart">ADD TO CART</button>
             </div>
@@ -53,7 +76,7 @@ const SingleProduct = () => {
             </div>
           </div>
         </div>
-     <RelatedProduct/>
+     <RelatedProduct category={product.category} />
       </div>
     </div>
 

@@ -59,6 +59,8 @@
         .right{
             display: flex;
             align-items: center;
+            list-style: none;
+            cursor: pointer;
             @include md{
                 gap: 25px;
             }

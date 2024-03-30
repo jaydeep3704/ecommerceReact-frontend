@@ -15,8 +15,9 @@
     }
     .category-title{
         font-size: 24px;
+        text-align: center;
         @include md{
-            font-size: 34px;
+            font-size: 40px;
         }
     }
 

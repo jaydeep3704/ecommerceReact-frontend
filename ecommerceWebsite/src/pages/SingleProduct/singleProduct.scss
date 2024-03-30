@@ -73,6 +73,7 @@
                             border: 1px solid grey;
                             padding: 5px 10px;
                             cursor: pointer;
+                            user-select: none;
                             &:nth-child(2)
                             {
                                 padding: 5px 20px;

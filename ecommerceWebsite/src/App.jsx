@@ -1,23 +1,39 @@
-import { useState } from 'react'
-
+import { useEffect, useState } from 'react'
 import'./app.scss'
-import Navbar from "./components/Navbar/Navbar"
+import Navbar from './components/Navbar/Navbar'
 import Homepage from "./pages/Homepage/Homepage"
 import SingleCategory from './pages/SingleCategory/SingleCategory'
 import { Routes ,Route} from 'react-router-dom'
 import Newsletter from "./components/Footer/Newsletter/Newsletter"
 import Footer from "./components/Footer/Footer"
 import SingleProduct from './pages/SingleProduct/SingleProduct'
+import Register from './pages/Register/Register'
+import Login from './pages/Login/Login'
+import { userLoggedIn } from './features/products/authSlice'
+import { useDispatch } from 'react-redux'
+
 function App() {
-  const [count, setCount] = useState(0)
+ const dispatch=useDispatch()
+  useEffect(() => {
+      if(localStorage.getItem('access_token') && localStorage.getItem('refresh_token'))
+      {
+        dispatch(userLoggedIn)
+      }
+
+  }, [])
+  
+ 
+  
 
   return (
     <>
      <Navbar/>
      <Routes>
        <Route path='/' element={<Homepage/>}/>
-       <Route path="/category/:id" element={<SingleCategory />} />
+       <Route path="/category/:id" element={<SingleCategory/>} />
        <Route path="/product/:id" element={<SingleProduct/>} />
+       <Route path='/login' element={<Login/>}/>
+       <Route path='/register' element={<Register/>}/>
      </Routes>
      <Newsletter/>
      <Footer/>
