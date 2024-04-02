@@ -9,22 +9,11 @@ import Footer from "./components/Footer/Footer"
 import SingleProduct from './pages/SingleProduct/SingleProduct'
 import Register from './pages/Register/Register'
 import Login from './pages/Login/Login'
-import { userLoggedIn } from './features/products/authSlice'
-import { useDispatch } from 'react-redux'
+
+
 
 function App() {
- const dispatch=useDispatch()
-  useEffect(() => {
-      if(localStorage.getItem('access_token') && localStorage.getItem('refresh_token'))
-      {
-        dispatch(userLoggedIn)
-      }
-
-  }, [])
-  
  
-  
-
   return (
     <>
      <Navbar/>

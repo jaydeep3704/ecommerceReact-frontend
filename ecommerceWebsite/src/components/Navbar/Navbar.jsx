@@ -19,6 +19,7 @@ const Navbar = () => {
   };
   const [scrolled, setScrolled] = useState(false);
   const [showCart, setShowCart] = useState(false);
+  const loggedIn=useSelector((state)=>state.auth.isLoggedIn)
 
   const handleScroll = () => {
     const offset = window.scrollY;
