@@ -1,9 +1,9 @@
 .item-container{
     width: 100%;
-    height: 100px;
     display: flex;
     padding: 20px ;
     gap: 20px;
+    
     background-color: rgba(0, 0, 0, 0.05);
     .prod-img{
         width: 80px;
@@ -16,6 +16,8 @@
         }
     }
     .prod-info{
+
+        
         .prod-name{
             font-size: 16px;
             font-weight: 600;
@@ -27,20 +29,23 @@
             }
             margin-bottom: 7px;
         }
-        .quantity-buttons{
-            span{
-                background-color: #fff;
-                font-size: 14px;
-                padding: 2px 15px;
-                border: 1px solid  rgba(0, 0, 0, 0.2);
-                &:nth-child(2)
-                {
-                    border-left:none;
-                    border-right:none;
+
+       
+            .quantity-buttons{
+                span{
+                    background-color: #fff;
+                    font-size: 14px;
+                    padding: 2px 15px;
+                    border: 1px solid  rgba(0, 0, 0, 0.2);
+                    &:nth-child(2)
+                    {
+                        border-left:none;
+                        border-right:none;
+                    }
                 }
             }
-            
-        }
+          
+        
         .price{
             margin-top: 5px;
             span{

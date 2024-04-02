@@ -37,7 +37,7 @@ const Cart = ({ setShowCart }) => {
 
 
   return (
-    <div className="cart-panel">
+    <div className="cart-panel hide-scrollbar">
       <div className="opac-layer"></div>
       <div className="cart-content">
         <div className="cart-header">
@@ -81,7 +81,7 @@ const Cart = ({ setShowCart }) => {
                const key=elem.id
                const productPrice=product.price
 
-              return  <CartItem key={key} price={price} image={image} product_name={product_name} prodquantity={quantity} productPrice={productPrice}/>
+              return  <CartItem key={key} price={price} image={image} product_name={product_name} prodquantity={quantity} productPrice={productPrice} id={key}/>
             })
           }
 

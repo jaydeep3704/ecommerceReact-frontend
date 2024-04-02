@@ -20,7 +20,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [showCart, setShowCart] = useState(false);
   const loggedIn=useSelector((state)=>state.auth.isLoggedIn)
-
+  const totalCartItems=useSelector((state)=>state.cart.cart_items).length
   const handleScroll = () => {
     const offset = window.scrollY;
 
@@ -77,7 +77,7 @@ const Navbar = () => {
             </div>
             <div className="cart" onClick={openCart}>
               <FiShoppingCart />
-              <span>4</span>
+              <span>{totalCartItems}</span>
             </div>
           </div>
         </div>

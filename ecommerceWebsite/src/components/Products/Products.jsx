@@ -23,6 +23,7 @@ const Products = ({ secheading = true, title = "" }) => {
                   }
                   productPrice={elem.price}
                   id={elem.id}
+                  key={elem.id}
                 />
               );
             })}
