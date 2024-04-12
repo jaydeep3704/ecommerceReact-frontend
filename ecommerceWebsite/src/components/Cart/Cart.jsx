@@ -7,7 +7,10 @@ import { MdShoppingCartCheckout } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { fetchCartData } from "../../features/products/cartSlice";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const Cart = ({ setShowCart }) => {
+
+  const navigate=useNavigate()
   const dispatch=useDispatch()
   useEffect(() => {
   
@@ -66,7 +69,7 @@ const Cart = ({ setShowCart }) => {
         <div className="empty-cart">
             <BsCartX/>
             <span>No products in the cart</span>
-            <button className='return-cta'>return to shop</button>
+            <button className='return-cta' onClick={()=>{navigate('/');setShowCart(false)}}>return to shop</button>
           </div> 
           :
           <>
@@ -92,7 +95,7 @@ const Cart = ({ setShowCart }) => {
                <div className="text totalPrice">&#8377; {subTotal}</div>
             </div>
             <div className="checkout">
-              <button className="checkout-cta"><MdShoppingCartCheckout/>Checkout</button>
+              <button className="checkout-cta" ><MdShoppingCartCheckout/>Checkout</button>
             </div>
           </div>
           </>

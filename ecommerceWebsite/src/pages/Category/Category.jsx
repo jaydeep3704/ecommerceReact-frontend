@@ -4,9 +4,12 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useScrollToTop } from "../../features/scrollToTop";
+
 
 const Category = () => {
   const navigate=useNavigate()
+  const scrollRef = useScrollToTop();
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -48,6 +51,8 @@ const Category = () => {
 
   const handleClick=(category_name)=>{
     navigate(`/category/${category_name}`)
+    scrollRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+
   }
 
   return (

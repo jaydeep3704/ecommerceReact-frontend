@@ -7,6 +7,7 @@ const initialState = {
   error: null,
   currentCategory: null,
   user: null,
+  subtotal:0
 };
 
 
@@ -90,7 +91,7 @@ export const updateCartItemQuantity = createAsyncThunk(
     try {
       const response = await axios.put(
         `${BASE_URL}cart/`,
-        { quantity },
+        {id, quantity },
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -112,7 +113,11 @@ export const updateCartItemQuantity = createAsyncThunk(
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
-  reducers: {},
+  reducers: {
+    calculateSubtotal(state) {
+      state.subtotal = state.cart_items.reduce((total, item) => total + item.price * item.quantity, 0);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCartData.pending, (state) => {

@@ -10,9 +10,10 @@ import Logout from "../Logout/Logout";
 import { useSelector } from "react-redux";
 import { userLoggedIn } from "../../features/products/authSlice";
 import { useDispatch } from 'react-redux'
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
    const dispatch=useDispatch()
-  
+   const navigate=useNavigate()
   const linkStyle = {
     textDecoration: "none",
     color: "white",
@@ -70,9 +71,9 @@ const Navbar = () => {
           <div className="right">
             
             {  useSelector((state)=>state.auth.isLoggedIn)?<Logout />:<Link to={'/login'} style={linkStyle}>Login</Link>}
-            <FaUserAlt />
-            <MdOutlineDarkMode />
-            <div className="search">
+            <FaUserAlt style={{fontSize:"3.5rem"}}/>
+            <MdOutlineDarkMode style={{fontSize:"3.5rem"}}/>
+            <div className="search" onClick={()=>navigate('/search')}>
               <FiSearch />
             </div>
             <div className="cart" onClick={openCart}>

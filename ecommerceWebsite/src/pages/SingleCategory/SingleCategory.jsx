@@ -4,15 +4,20 @@ import Products from "../../components/Products/Products"
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProductsByCategory } from '../../features/products/productSlice';
+import Loader from '../../components/Loader/Loader';
+
 
 const SingleCategory = ({}) => {
 
   const { id } = useParams();
   const dispatch=useDispatch()
   const { products, isLoading, error } = useSelector((state) => state.products)
+ 
 
  
+ 
     useEffect(() => {
+      
       if (id) {
         dispatch(fetchProductsByCategory(id)); // Dispatch thunk based on categoryId
       }
@@ -33,7 +38,8 @@ const SingleCategory = ({}) => {
             <div className="category-title">
                {id.toUpperCase()}
             </div>
-            <Products secheading={false}/>
+            {isLoading?<Loader/>:<Products secheading={false}/>}
+            
         </div>
     </div>
   )

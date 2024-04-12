@@ -9,6 +9,7 @@ import Footer from "./components/Footer/Footer"
 import SingleProduct from './pages/SingleProduct/SingleProduct'
 import Register from './pages/Register/Register'
 import Login from './pages/Login/Login'
+import Search from './pages/Search/Search'
 
 
 
@@ -20,9 +21,11 @@ function App() {
      <Routes>
        <Route path='/' element={<Homepage/>}/>
        <Route path="/category/:id" element={<SingleCategory/>} />
+       
        <Route path="/product/:id" element={<SingleProduct/>} />
        <Route path='/login' element={<Login/>}/>
        <Route path='/register' element={<Register/>}/>
+       <Route path='/search' element={<Search/>}/>
      </Routes>
      <Newsletter/>
      <Footer/>

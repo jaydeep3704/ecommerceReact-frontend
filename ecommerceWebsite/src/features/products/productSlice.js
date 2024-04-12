@@ -16,6 +16,27 @@ export const fetchProductsByCategory = createAsyncThunk(
   }
 );
 
+const BASE_URL = "http://127.0.0.1:8000/api/";
+
+export const filterProducts = createAsyncThunk(
+  'products/filterProducts',
+  async (input) => {
+    try {
+      const url = input ? `${BASE_URL}products/?search=${input}` : `${BASE_URL}products/`; // Build URL with category parameter if provided
+      const response = await axios.get(url);
+
+      if (!response.data) {
+        throw new Error('No products found');
+      }
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message); // Handle errors
+    }
+  }
+);
+
+
+
 const productSlice = createSlice({
   name: 'products',
   initialState,
@@ -32,6 +53,18 @@ const productSlice = createSlice({
         state.currentCategory = action.meta.arg; // Store the fetched category
       })
       .addCase(fetchProductsByCategory.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(filterProducts.pending, (state, action) => {
+        state.isLoading = true;
+        state.error = null; // Update products with filtered results
+      })
+      .addCase(filterProducts.fulfilled,(state,action)=>{
+        state.isLoading=false;
+        state.products=action.payload
+      })
+      .addCase(filterProducts.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       });

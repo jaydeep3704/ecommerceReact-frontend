@@ -1,0 +1,41 @@
+@import "../../css-config/mixins.scss";
+
+
+.search{
+    width: 100%;
+
+    
+    .search-container{
+       
+        margin: 50px auto;
+        @include md{
+            margin: 75px auto;
+            max-width: 1200px;
+        }
+        .searchbar{
+            margin: 0 auto;
+            display: flex;
+            width: 50%;
+            justify-content: center;
+            align-items: center;
+            border:1px solid rgba(0, 0, 0, 0.25);
+            padding: 4px 10px;
+            input{
+                width: 80%;
+                padding: 5px 20px;
+                outline: none;
+                border: none;
+                @include md{
+                    width: 550px;
+                }
+            }
+          
+        }
+        .products{
+            margin: 0 auto;
+            
+        }
+        
+    }
+
+}
