@@ -28,7 +28,7 @@ const Checkout = () => {
   const cartData=useSelector((state)=>state.cart.cart_items)
   const amount=cartData[0].cart.total_price
   
-  const[data,setData]=useState({
+  const[shipping,setShipping]=useState({
     firstName: '',
     lastName: '',
     postalCode: 0,
@@ -80,6 +80,7 @@ const handlePayment=(e)=>{
     const order_id=data.payload.payment.id
 
     var rzp1 = new Razorpay({...options,order_id:order_id});
+
     rzp1.on('payment.failed', function (response){
         alert(response.error.code);
         alert(response.error.description);
@@ -92,7 +93,25 @@ const handlePayment=(e)=>{
     rzp1.open();
   
   }
- pay()
+
+if(shipping.firstName=='' || shipping.lastName=='' ||  shipping.phoneNo.length<10 || shipping.postalCode.length<6 || shipping.address=='')
+{
+  console.log("phone no ",shipping.phoneNo.length)
+  alert("Enter correct shipping details")
+  
+}
+else{
+  if(shipping.postalCode.length<6 || shipping.phoneNo.length<10)
+  {
+    alert("Enter correct shipping details ")
+  }
+  else 
+  {
+    pay()
+  }
+ 
+}
+
 }
 
  
@@ -109,15 +128,15 @@ const imageSource = "http://127.0.0.1:8000/" ;
           <div className="customer-info">
             <div className="info-div">
               <label htmlFor="firstName">First Name</label>
-              <input type="text" id="firstName" placeholder="First Name"onChange={(e)=>setData({...data,firstName:e.target.value})} value={data.firstName}/>
+              <input type="text" id="firstName" placeholder="First Name"onChange={(e)=>setShipping({...shipping,firstName:e.target.value})} value={shipping.firstName}/>
             </div>
             <div className="info-div">
               <label htmlFor="lastName">Last Name</label>
-              <input type="lastName" placeholder="Last Name" onChange={(e)=>setData({...data,lastName:e.target.value})} value={data.lastName}/>
+              <input type="lastName" placeholder="Last Name" onChange={(e)=>setShipping({...shipping,lastName:e.target.value})} value={shipping.lastName}/>
             </div>
             <div className="info-div">
               <label htmlFor="phoneno">Phone No</label>
-              <input type="number" placeholder="Phone no"  onChange={(e)=>setData({...data,phoneNo:e.target.value})} value={data.phoneNo} />
+              <input type="number" placeholder="Phone no"  onChange={(e)=>setShipping({...shipping,phoneNo:e.target.value})} value={shipping.phoneNo} />
             </div>
           </div>
         </div>
@@ -128,11 +147,11 @@ const imageSource = "http://127.0.0.1:8000/" ;
             <div className="billing-info">
                 <div className="billing-div">
                 <label htmlFor="address">Address</label>
-                <input type="text" id="address" placeholder="enter your address"  style={{"width":"700px"}}   onChange={(e)=>setData({...data,address:e.target.value})} value={data.address}/>
+                <input type="text" id="address" placeholder="enter your address"  style={{"width":"700px"}}   onChange={(e)=>setShipping({...shipping,address:e.target.value})} value={shipping.address}/>
                 </div>
                 <div className="billing-div">
                     <label htmlFor="postalCode">Postal Code</label>
-                    <input type="number" id="postalCode" placeholder="postal code" style={{"width":"350px"}} onChange={(e)=>setData({...data,postalCode:e.target.value})} value={data.postalCode}/>
+                    <input type="number" id="postalCode" placeholder="postal code" style={{"width":"350px"}} onChange={(e)=>setShipping({...shipping,postalCode:e.target.value})} value={shipping.postalCode}/>
                 </div>
 
             </div>

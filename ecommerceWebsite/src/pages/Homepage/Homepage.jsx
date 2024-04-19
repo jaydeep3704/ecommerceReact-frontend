@@ -12,7 +12,7 @@ const Homepage = () => {
     <div className="main-content">
       <div className="layout">
       <Category/>
-      <Products title="popular products"/>
+      
       </div>
     </div>
   </div>
