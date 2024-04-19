@@ -4,8 +4,9 @@ import headPhones from "../../assets/headPhones.png"
 import { FaTwitter } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
-
+import { useNavigate } from 'react-router-dom';
 const Banner = () => {
+  const navigate=useNavigate()
   return (
     <div className="banner">
         <div className="content">
@@ -15,7 +16,7 @@ const Banner = () => {
                 
                 <div className="ctas">
                     <div className="banner-cta">Read More</div>
-                    <div className="banner-cta v2">Shop Now</div>
+                    <div className="banner-cta v2" onClick={()=>navigate("product/17")}>Shop Now</div>
                 </div>
             </div>
             <img src={headPhones} alt=""  />

@@ -201,7 +201,7 @@ const imageSource = "http://127.0.0.1:8000/" ;
                <div className="item" key={item.id}>
                 <div className="prod-info">
                 <img src={prodimg} alt={productname} />
-                  <span className="prod-title">{productname.length>77? productname.substring(0,80)+"...":productname}</span>
+                  <span className="prod-title">{productname.length>70? productname.substring(0,70)+"...":productname}</span>
                 </div>
                  <span className="price">{item.quantity} x {item.product.price} = {item.price} </span>
               </div>
