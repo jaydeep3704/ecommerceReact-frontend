@@ -95,7 +95,7 @@ const Cart = ({ setShowCart }) => {
                <div className="text totalPrice">&#8377; {subTotal}</div>
             </div>
             <div className="checkout">
-              <button className="checkout-cta" ><MdShoppingCartCheckout/>Checkout</button>
+              <button className="checkout-cta" onClick={()=>navigate('\checkout')}><MdShoppingCartCheckout/>Checkout</button>
             </div>
           </div>
           </>

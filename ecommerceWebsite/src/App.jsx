@@ -10,6 +10,7 @@ import SingleProduct from './pages/SingleProduct/SingleProduct'
 import Register from './pages/Register/Register'
 import Login from './pages/Login/Login'
 import Search from './pages/Search/Search'
+import Checkout from './pages/Checkout/Checkout'
 
 
 
@@ -23,7 +24,9 @@ function App() {
        <Route path="/category/:id" element={<SingleCategory/>} />
        
        <Route path="/product/:id" element={<SingleProduct/>} />
+       
        <Route path='/login' element={<Login/>}/>
+       <Route path="/checkout" element={<Checkout/>}/>
        <Route path='/register' element={<Register/>}/>
        <Route path='/search' element={<Search/>}/>
      </Routes>
