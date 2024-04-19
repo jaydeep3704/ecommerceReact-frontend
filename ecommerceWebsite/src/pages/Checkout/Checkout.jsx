@@ -27,7 +27,7 @@ const Checkout = () => {
 
   const cartData=useSelector((state)=>state.cart.cart_items)
   const amount=cartData[0].cart.total_price
-  
+  const [payment,setPayment]=useState({order_id:'',payment_id:'',payment_signature:''})
   const[shipping,setShipping]=useState({
     firstName: '',
     lastName: '',
@@ -37,7 +37,33 @@ const Checkout = () => {
   })
 
 
+  const handlePaymentSuccess = async (response) => {
+    try {
+      let bodyData = new FormData();
 
+      // we will send the response we've got from razorpay to the backend to validate the payment
+      bodyData.append("response", JSON.stringify(response));
+      console.log(response)
+      await Axios({
+        url: `http://127.0.0.1:8000/api/razorpay/payment/success/`,
+        method: "POST",
+        data: bodyData,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          console.log("Everything is OK!");
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      console.log(console.error());
+    }
+  };
 
 
   
@@ -57,7 +83,8 @@ const handlePayment=(e)=>{
     "handler": function (response){
         alert(response.razorpay_payment_id);
         alert(response.razorpay_order_id);
-        alert(response.razorpay_signature)
+        alert(response.razorpay_signature);
+        handlePaymentSuccess(response)
     },
     "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
         "name": "", //your customer's name
@@ -101,7 +128,7 @@ if(shipping.firstName=='' || shipping.lastName=='' ||  shipping.phoneNo.length<1
   
 }
 else{
-  if(shipping.postalCode.length<6 || shipping.phoneNo.length<10)
+  if(shipping.postalCode.length<6 && shipping.phoneNo.length<10)
   {
     alert("Enter correct shipping details ")
   }
